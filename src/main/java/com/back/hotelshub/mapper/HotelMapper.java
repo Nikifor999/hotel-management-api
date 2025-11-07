@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class HotelMapper {
 
 
-    public static HotelSummaryDTO ToDTO(final Hotel hotel) {
+    public static HotelSummaryDTO toSummaryDTO(final Hotel hotel) {
         String fullAddress = null;
         if (hotel.getAddress() != null) {
             Address a = hotel.getAddress();
@@ -64,7 +64,6 @@ public class HotelMapper {
                 "Unknown",
                 "Unknown"
         );
-        ;
         return new ContactsDTO(
                 contact.getPhone(),
                 contact.getEmail()
