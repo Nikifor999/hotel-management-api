@@ -32,10 +32,10 @@ public class HotelHistogramRepositoryImpl implements HotelHistogramRepository {
             default -> throw new IllegalArgumentException("Unsupported parameter: " + param);
         }
 
-        cq.multiselect(groupByPath, cb.countDistinct(root.get("id")))
+        cq.multiselect(groupByPath, cb.count(root.get("id")))
                 .where(cb.isNotNull(groupByPath))
                 .groupBy(groupByPath)
-                .orderBy(cb.desc(cb.countDistinct(root.get("id"))));
+                .orderBy(cb.desc(cb.count(root.get("id"))));
 
         return entityManager.createQuery(cq).getResultList();
     }

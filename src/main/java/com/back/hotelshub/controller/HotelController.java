@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/property-view")
 @RequiredArgsConstructor
-public class HotelController {
+public class HotelController implements HotelApi{
 
     private final HotelService hotelService;
 
