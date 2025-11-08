@@ -1,7 +1,6 @@
 package com.back.hotelshub.util;
 
-import com.back.hotelshub.dto.HotelDetailsDTO;
-import com.back.hotelshub.dto.HotelSummaryDTO;
+import com.back.hotelshub.dto.*;
 import com.back.hotelshub.entity.*;
 import com.back.hotelshub.mapper.HotelMapper;
 
@@ -11,7 +10,8 @@ import java.util.Set;
 
 public final class TestDataFactory {
 
-    private TestDataFactory() {}
+    private TestDataFactory() {
+    }
 
     public static HotelDetailsDTO createHotelDetailsDTO() {
         return HotelMapper.toDetailsDTO(createHotel());
@@ -54,6 +54,31 @@ public final class TestDataFactory {
                 Amenity.builder().id(2L).amenityName("Free WiFi").build(),
                 Amenity.builder().id(3L).amenityName("Fitness center").build()
         ));
+    }
+
+    public static HotelCreationDto createHotelCreationDto() {
+        AddressDTO address = AddressDTO.builder()
+                .city("Minsk")
+                .country("Belarus")
+                .houseNumber(9)
+                .postcode("220004")
+                .street("Pobediteley Avenue")
+                .build();
+
+        return HotelCreationDto.builder()
+                .name("DoubleTree by Hilton Minsk")
+                .brand("Hilton")
+                .description("The DoubleTree by Hilton Hotel Minsk offers 193 luxurious rooms ...")
+                .address(address)
+                .contacts(ContactsDTO.builder()
+                        .email("someemail@email.com")
+                        .phone("1111111111")
+                        .build())
+                .arrivalTime(ArrivalTimeDTO.builder()
+                        .checkIn("12:00")
+                        .checkOut("14:00")
+                        .build())
+                .build();
     }
 
     public static List<HotelSummaryDTO> createHotelSummaryList() {

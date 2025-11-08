@@ -87,4 +87,71 @@ public class HotelMapper {
                 .map(Amenity::getAmenityName)
                 .collect(Collectors.toList());
     }
+
+    public static Hotel fromCreationDtoToHotel(final HotelCreationDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        return Hotel.builder()
+                .name(dto.name())
+                .description(dto.description())
+                .brand(dto.brand())
+                .address(toAddressEntity(dto.address()))
+                .contact(toContactEntity(dto.contacts()))
+                .arrivalTime(toArrivalTimeEntity(dto.arrivalTime()))
+                .build();
+    }
+
+    private static Address toAddressEntity(final AddressDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Address address = new Address();
+        address.setHouseNumber(dto.houseNumber());
+        address.setStreet(dto.street());
+        address.setCity(dto.city());
+        address.setCountry(dto.country());
+        address.setPostcode(dto.postcode());
+        return address;
+    }
+
+    private static Contact toContactEntity(final ContactsDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        Contact contact = new Contact();
+        contact.setPhone(dto.phone());
+        contact.setEmail(dto.email());
+        return contact;
+    }
+
+    private static ArrivalTime toArrivalTimeEntity(final ArrivalTimeDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        ArrivalTime arrivalTime = new ArrivalTime();
+        arrivalTime.setCheckIn(dto.checkIn());
+        arrivalTime.setCheckOut(dto.checkOut());
+        return arrivalTime;
+    }
+
+    private static Set<Amenity> toAmenitiesEntity(final List<String> amenityNames) {
+        if (amenityNames == null || amenityNames.isEmpty()) {
+            return Set.of();
+        }
+
+        return amenityNames.stream()
+                .map(HotelMapper::createAmenityFromName)
+                .collect(Collectors.toSet());
+    }
+
+    private static Amenity createAmenityFromName(final String name) {
+        Amenity amenity = new Amenity();
+        amenity.setAmenityName(name);
+        return amenity;
+    }
 }

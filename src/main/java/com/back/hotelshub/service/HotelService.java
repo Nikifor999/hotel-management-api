@@ -1,9 +1,6 @@
 package com.back.hotelshub.service;
 
-import com.back.hotelshub.dto.HotelDetailsDTO;
-import com.back.hotelshub.dto.HotelSearchRequest;
-import com.back.hotelshub.dto.HotelSpecifications;
-import com.back.hotelshub.dto.HotelSummaryDTO;
+import com.back.hotelshub.dto.*;
 import com.back.hotelshub.entity.Hotel;
 import com.back.hotelshub.mapper.HotelMapper;
 import com.back.hotelshub.repository.HotelRepository;
@@ -66,5 +63,11 @@ public class HotelService {
         return specifications.isEmpty()
                 ? null
                 : Specification.allOf(specifications);
+    }
+
+    public HotelSummaryDTO createHotel(HotelCreationDto request) {
+        Hotel hotel = HotelMapper.fromCreationDtoToHotel(request);
+        Hotel savedHotel = hotelRepository.save(hotel);
+        return HotelMapper.toSummaryDTO(savedHotel);
     }
 }

@@ -1,11 +1,14 @@
 package com.back.hotelshub.controller;
 
+import com.back.hotelshub.dto.HotelCreationDto;
 import com.back.hotelshub.dto.HotelDetailsDTO;
 import com.back.hotelshub.dto.HotelSearchRequest;
 import com.back.hotelshub.dto.HotelSummaryDTO;
 import com.back.hotelshub.service.HotelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -45,6 +48,12 @@ public class HotelController {
                 name, brand, city, country, amenityNames);
         List<HotelSummaryDTO> list = hotelService.search(request);
         return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/hotels")
+    public ResponseEntity<HotelSummaryDTO> createHotel(@Validated @RequestBody HotelCreationDto dto) {
+        HotelSummaryDTO response = hotelService.createHotel(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     private List<String> parseAmenitiesParam(List<String> amenities) {

@@ -1,12 +1,12 @@
 package com.back.hotelshub.unitTest;
 
 import com.back.hotelshub.controller.HotelController;
-import com.back.hotelshub.dto.HotelDetailsDTO;
-import com.back.hotelshub.dto.HotelSearchRequest;
-import com.back.hotelshub.dto.HotelSummaryDTO;
+import com.back.hotelshub.dto.*;
 import com.back.hotelshub.entity.*;
+import com.back.hotelshub.mapper.HotelMapper;
 import com.back.hotelshub.service.HotelService;
 import com.back.hotelshub.util.TestDataFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,9 +17,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.matchesPattern;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -39,6 +39,9 @@ public class HotelControllerUnitTest {
 
     @MockitoBean
     private HotelService hotelService;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private static final String BASE_URL = "/property-view";
 
@@ -93,7 +96,7 @@ public class HotelControllerUnitTest {
     ) throws Exception {
 
         List<HotelSummaryDTO> hotelDTOs = TestDataFactory.createHotelSummaryList();
-        when(hotelService.search(any(HotelSearchRequest.class))).thenReturn(hotelDTOs);
+        when(hotelService.search(any())).thenReturn(hotelDTOs);
 
         String searchCriteria = "/search" + search;
 
@@ -117,7 +120,7 @@ public class HotelControllerUnitTest {
 
         when(hotelService.search(any())).thenReturn(List.of());
 
-        mockMvc.perform(get(BASE_URL+"/search")
+        mockMvc.perform(get(BASE_URL + "/search")
                         .param("city", "Atlantis")
                         .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -156,6 +159,55 @@ public class HotelControllerUnitTest {
                 .andExpect(jsonPath("$[0].phone").value("+7 495 123-45-67"));
 
         verify(hotelService, times(1)).search(any());
+    }
+
+    @Test
+    @DisplayName("Should create hotel")
+    void shouldCreateHotel() throws Exception {
+        HotelCreationDto dto = TestDataFactory.createHotelCreationDto();
+        Hotel hotel = HotelMapper.fromCreationDtoToHotel(dto);
+        hotel.setId(999L);
+        HotelSummaryDTO response = HotelMapper.toSummaryDTO(hotel);
+        String city = dto.address().city();
+        String pattern = String.format(".*%s.*", city);
+
+        String jsonContent = objectMapper.writeValueAsString(dto);
+        when(hotelService.createHotel(any())).thenReturn(response);
+
+        mockMvc.perform(post(BASE_URL + "/hotels")
+                        .content(jsonContent)
+                        .contentType(APPLICATION_JSON)
+                        .accept(APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(response.id()))
+                .andExpect(jsonPath("$.name").value(dto.name()))
+                .andExpect(jsonPath("$.address").value(matchesPattern(pattern)))
+                .andExpect(jsonPath("$.phone").value(dto.contacts().phone()));
+
+        verify(hotelService, times(1)).createHotel(any());
+    }
+
+
+    @Test
+    @DisplayName("Should return 400 when name or brand is missing")
+    void shouldFailValidationWhenNameOrBrandMissing() throws Exception {
+        HotelCreationDto invalidDto = HotelCreationDto.builder()
+                .name("") // invalid
+                .description("No name")
+                .brand("") // invalid
+                .address(new AddressDTO(9, "Street", "City", "Country", "12345"))
+                .contacts(new ContactsDTO("+123456789", "test@mail.com"))
+                .arrivalTime(new ArrivalTimeDTO("14:00", "12:00"))
+                .build();
+
+        mockMvc.perform(post(BASE_URL + "/hotels")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(invalidDto))
+                        .accept(APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+
+        verify(hotelService, never()).createHotel(any());
     }
 
     public static Stream<Arguments> hotelSearchRequests() {
