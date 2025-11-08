@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -58,10 +59,19 @@ public class HotelController {
 
     @PostMapping("/hotels/{id}/amenities")
     public ResponseEntity<Void> addAmenitiesToHotel(@PathVariable Long id,
-                                                    @Validated @RequestBody List<String> amenities ) {
+                                                    @Validated @RequestBody List<String> amenities) {
         hotelService.addAmenitiesToHotelById(id, amenities);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+
+    @GetMapping("/histogram/{param}")
+    public ResponseEntity< Map<String, Long>> getHistogramByParam(@PathVariable String param) {
+
+        Map<String, Long> result = hotelService.getHistogramByParam(param);
+        return ResponseEntity.ok().body(result);
+    }
+
 
     private List<String> parseAmenitiesParam(List<String> amenities) {
         if (amenities == null) return Collections.emptyList();

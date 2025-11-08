@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HotelRepository extends JpaRepository<Hotel, Long>, JpaSpecificationExecutor<Hotel> {
+public interface HotelRepository extends JpaRepository<Hotel, Long>,
+        JpaSpecificationExecutor<Hotel>, HotelHistogramRepository  {
 
     @EntityGraph(attributePaths = {"address", "contact", "amenities"})
     List<Hotel> findAll(Specification<Hotel> spec);

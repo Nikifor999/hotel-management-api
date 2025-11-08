@@ -11,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,5 +89,16 @@ public class HotelService {
 
         hotel.getAmenities().addAll(amenities);
         Hotel saved = hotelRepository.save(hotel);
+    }
+
+    public Map<String, Long> getHistogramByParam(String param) {
+        List<Object[]> result = hotelRepository.getHistogramByParam(param);
+        return result.stream()
+                .collect(Collectors.toMap(
+                        r -> String.valueOf(r[0]),
+                        r -> ((Number) r[1]).longValue(),
+                        (a, b) -> a,
+                        LinkedHashMap::new
+                ));
     }
 }

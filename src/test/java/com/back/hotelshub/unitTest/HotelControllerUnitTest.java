@@ -11,11 +11,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,7 +28,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -209,6 +214,26 @@ public class HotelControllerUnitTest {
 
         verify(hotelService, never()).createHotel(any());
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"brand", "city", "country", "amenities"})
+    @DisplayName("returning histograms for different params")
+    void shouldReturnHistogramsWhenDifferentParams(String param) throws Exception {
+        Map<String, Long> result = Map.of(
+                param + "1", 9L,
+                param + "2", 3L,
+                param + "3", 7L
+        );
+        when(hotelService.getHistogramByParam(param)).thenReturn(result);
+
+        mockMvc.perform(get(BASE_URL + "/histogram/{param}", param)
+                        .accept(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(APPLICATION_JSON));
+
+        verify(hotelService, times(1)).getHistogramByParam(param);
+    }
+
 
     public static Stream<Arguments> hotelSearchRequests() {
         return Stream.of(
