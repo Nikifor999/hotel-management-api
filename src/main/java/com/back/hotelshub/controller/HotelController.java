@@ -56,6 +56,13 @@ public class HotelController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/hotels/{id}/amenities")
+    public ResponseEntity<Void> addAmenitiesToHotel(@PathVariable Long id,
+                                                    @Validated @RequestBody List<String> amenities ) {
+        hotelService.addAmenitiesToHotelById(id, amenities);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     private List<String> parseAmenitiesParam(List<String> amenities) {
         if (amenities == null) return Collections.emptyList();
         return amenities.stream()

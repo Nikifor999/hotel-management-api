@@ -1,8 +1,10 @@
 package com.back.hotelshub.service;
 
 import com.back.hotelshub.dto.*;
+import com.back.hotelshub.entity.Amenity;
 import com.back.hotelshub.entity.Hotel;
 import com.back.hotelshub.mapper.HotelMapper;
+import com.back.hotelshub.repository.AmenityRepository;
 import com.back.hotelshub.repository.HotelRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -10,13 +12,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class HotelService {
 
     private final HotelRepository hotelRepository;
+    private final AmenityRepository amenityRepository;
 
     public List<HotelSummaryDTO> getAllHotels() {
         return hotelRepository.findAll()
@@ -69,5 +75,22 @@ public class HotelService {
         Hotel hotel = HotelMapper.fromCreationDtoToHotel(request);
         Hotel savedHotel = hotelRepository.save(hotel);
         return HotelMapper.toSummaryDTO(savedHotel);
+    }
+
+    public void addAmenitiesToHotelById(Long id, List<String> amenityNames) {
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel not found with id: " + id));
+
+        Set<Amenity> amenities = amenityNames.stream()
+                .map(name -> amenityRepository.findByAmenityNameIgnoreCase(name)
+                        .orElseGet(() -> amenityRepository.save(
+                                Amenity.builder().amenityName(name).build()
+                        ))
+                )
+                .collect(Collectors.toSet());
+
+
+        hotel.getAmenities().addAll(amenities);
+        Hotel saved = hotelRepository.save(hotel);
     }
 }
