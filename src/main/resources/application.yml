@@ -9,9 +9,10 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
   liquibase:
+    #drop-first: true
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master.yaml
 

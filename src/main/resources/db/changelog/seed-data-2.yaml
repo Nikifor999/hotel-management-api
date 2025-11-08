@@ -1,0 +1,345 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004
+      author: nikifor
+      changes:
+        # 2. Marriott Hotel Minsk
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: house_number, value: 20 }
+              - column: { name: street, value: "Pobediteley Avenue" }
+              - column: { name: city, value: "Minsk" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "220020" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: phone, value: "+375 17 279-00-00" }
+              - column: { name: email, value: "info.minsk@marriott.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 2 }
+              - column: { name: name, value: "Marriott Hotel Minsk" }
+              - column: { name: description, value: "Located in the heart of Minsk, Marriott Hotel offers luxurious accommodations with modern amenities and exceptional service for both business and leisure travelers." }
+              - column: { name: brand, value: "Marriott" }
+              - column: { name: arrival_check_in, value: "15:00" }
+              - column: { name: arrival_check_out, value: "12:00" }
+              - column: { name: address_id, value: 2 }
+              - column: { name: contacts_id, value: 2 }
+
+        # 3. Radisson Blu Hotel Mogilev
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: house_number, value: 1 }
+              - column: { name: street, value: "Kirova Street" }
+              - column: { name: city, value: "Mogilev" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "212030" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: phone, value: "+375 222 75-55-55" }
+              - column: { name: email, value: "reservations.mogilev@radissonblu.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 3 }
+              - column: { name: name, value: "Radisson Blu Hotel" }
+              - column: { name: description, value: "Contemporary hotel featuring stylish rooms, multiple dining options, and extensive conference facilities." }
+              - column: { name: brand, value: "Radisson" }
+              - column: { name: arrival_check_in, value: "14:00" }
+              - column: { name: arrival_check_out, value: "11:00" }
+              - column: { name: address_id, value: 3 }
+              - column: { name: contacts_id, value: 3 }
+
+        # 4. Sheraton Grand Warsaw
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 4 }
+              - column: { name: house_number, value: 2 }
+              - column: { name: street, value: "Bolesława Prusa Street" }
+              - column: { name: city, value: "Warsaw" }
+              - column: { name: country, value: "Poland" }
+              - column: { name: post_code, value: "00-498" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 4 }
+              - column: { name: phone, value: "+48 22 450-67-89" }
+              - column: { name: email, value: "reservations.warsaw@sheraton.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 4 }
+              - column: { name: name, value: "Sheraton Grand Warsaw" }
+              - column: { name: description, value: "Luxury hotel in Warsaw city center with panoramic views, premium spa, and exquisite dining experiences." }
+              - column: { name: brand, value: "Sheraton" }
+              - column: { name: arrival_check_in, value: "15:00" }
+              - column: { name: arrival_check_out, value: "11:00" }
+              - column: { name: address_id, value: 4 }
+              - column: { name: contacts_id, value: 4 }
+
+        # 5. Hilton Kyiv
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 5 }
+              - column: { name: house_number, value: 30 }
+              - column: { name: street, value: "Tarasa Shevchenko Boulevard" }
+              - column: { name: city, value: "Kyiv" }
+              - column: { name: country, value: "Ukraine" }
+              - column: { name: post_code, value: "01601" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 5 }
+              - column: { name: phone, value: "+380 44 393-81-81" }
+              - column: { name: email, value: "info.kyiv@hilton.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 5 }
+              - column: { name: name, value: "Hilton Kyiv" }
+              - column: { name: description, value: "Modern high-rise hotel offering stunning city views, multiple restaurants, and extensive meeting spaces in Ukraine's capital." }
+              - column: { name: brand, value: "Hilton" }
+              - column: { name: arrival_check_in, value: "14:00" }
+              - column: { name: arrival_check_out, value: "12:00" }
+              - column: { name: address_id, value: 5 }
+              - column: { name: contacts_id, value: 5 }
+
+        # 6. Renaissance Moscow Hotel
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 6 }
+              - column: { name: house_number, value: 18 }
+              - column: { name: street, value: "Olympiyskiy Prospect" }
+              - column: { name: city, value: "Moscow" }
+              - column: { name: country, value: "Russia" }
+              - column: { name: post_code, value: "129110" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 6 }
+              - column: { name: phone, value: "+7 495 931-90-00" }
+              - column: { name: email, value: "moscow.reservations@renaissancehotels.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 6 }
+              - column: { name: name, value: "Renaissance Moscow Hotel" }
+              - column: { name: description, value: "Elegant hotel in Moscow featuring sophisticated design, gourmet dining, and premium wellness facilities." }
+              - column: { name: brand, value: "Renaissance" }
+              - column: { name: arrival_check_in, value: "15:00" }
+              - column: { name: arrival_check_out, value: "12:00" }
+              - column: { name: address_id, value: 6 }
+              - column: { name: contacts_id, value: 6 }
+
+        # 7. DoubleTree by Hilton Riga
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 7 }
+              - column: { name: house_number, value: 5 }
+              - column: { name: street, value: "Marijas Street" }
+              - column: { name: city, value: "Riga" }
+              - column: { name: country, value: "Latvia" }
+              - column: { name: post_code, value: "LV-1050" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 7 }
+              - column: { name: phone, value: "+371 67 083-000" }
+              - column: { name: email, value: "info.riga@doubletree.com" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 7 }
+              - column: { name: name, value: "DoubleTree by Hilton Riga" }
+              - column: { name: description, value: "Historic hotel blending classic architecture with modern comforts, located in the heart of Riga's Old Town." }
+              - column: { name: brand, value: "Hilton" }
+              - column: { name: arrival_check_in, value: "14:00" }
+              - column: { name: arrival_check_out, value: "12:00" }
+              - column: { name: address_id, value: 7 }
+              - column: { name: contacts_id, value: 7 }
+
+        # 8. Minsk Hotel (Local brand)
+        - insert:
+            tableName: addresses
+            columns:
+              - column: { name: id, value: 8 }
+              - column: { name: house_number, value: 11 }
+              - column: { name: street, value: "Gorky Street" }
+              - column: { name: city, value: "Minsk" }
+              - column: { name: country, value: "Belarus" }
+              - column: { name: post_code, value: "220030" }
+        - insert:
+            tableName: contacts
+            columns:
+              - column: { name: id, value: 8 }
+              - column: { name: phone, value: "+375 17 209-90-00" }
+              - column: { name: email, value: "reservations@minsk-hotel.by" }
+        - insert:
+            tableName: hotels
+            columns:
+              - column: { name: id, value: 8 }
+              - column: { name: name, value: "Minsk Hotel" }
+              - column: { name: description, value: "Historic landmark hotel in central Minsk offering traditional hospitality with Soviet-era charm and modern updates." }
+              - column: { name: brand, value: "Local" }
+              - column: { name: arrival_check_in, value: "14:00" }
+              - column: { name: arrival_check_out, value: "12:00" }
+              - column: { name: address_id, value: 8 }
+              - column: { name: contacts_id, value: 8 }
+
+  - changeSet:
+      id: 0005
+      author: nikifor
+      changes:
+        # 🔗 Добавляем связи отелей с amenities для тестирования гистограмм
+
+        # Marriott Hotel Minsk (id: 2) - Free WiFi, Restaurant, Fitness Center
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 2 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 2 }
+              - column: { name: amenity_id, value: 5 }  # On-site restaurant
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 2 }
+              - column: { name: amenity_id, value: 6 }  # Fitness center
+
+        # Radisson Blu Hotel (id: 3) - Free WiFi, Free Parking, Swimming Pool
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenity_id, value: 1 }  # Free parking
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 3 }
+              - column: { name: amenity_id, value: 5 }  # On-site restaurant
+
+        # Sheraton Grand Warsaw (id: 4) - Business amenities
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 4 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 4 }
+              - column: { name: amenity_id, value: 9 }  # Business center
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 4 }
+              - column: { name: amenity_id, value: 10 } # Meeting rooms
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 4 }
+              - column: { name: amenity_id, value: 6 }  # Fitness center
+
+        # Hilton Kyiv (id: 5) - Много amenities
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 1 }  # Free parking
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 3 }  # Non-smoking rooms
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 5 }  # On-site restaurant
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 6 }  # Fitness center
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 5 }
+              - column: { name: amenity_id, value: 8 }  # Room service
+
+        # Renaissance Moscow (id: 6) - Luxury amenities
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 6 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 6 }
+              - column: { name: amenity_id, value: 5 }  # On-site restaurant
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 6 }
+              - column: { name: amenity_id, value: 6 }  # Fitness center
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 6 }
+              - column: { name: amenity_id, value: 8 }  # Room service
+
+        # DoubleTree Riga (id: 7) - Standard amenities
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 7 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 7 }
+              - column: { name: amenity_id, value: 3 }  # Non-smoking rooms
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 7 }
+              - column: { name: amenity_id, value: 5 }  # On-site restaurant
+
+        # Minsk Hotel (id: 8) - Basic amenities
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 8 }
+              - column: { name: amenity_id, value: 2 }  # Free WiFi
+        - insert:
+            tableName: hotel_amenities
+            columns:
+              - column: { name: hotel_id, value: 8 }
+              - column: { name: amenity_id, value: 3 }  # Non-smoking rooms

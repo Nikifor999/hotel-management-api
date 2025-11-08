@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/init-db.yaml
   - include:
       file: db/changelog/seed-data.yaml
+  - include:
+      file: db/changelog/seed-data-2.yaml
