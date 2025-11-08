@@ -18,7 +18,7 @@ public class HotelMapper {
                     a.getHouseNumber(),
                     a.getStreet(),
                     a.getCity(),
-                    a.getPostcode(),
+                    a.getPostCode(),
                     a.getCountry());
         }
 
@@ -55,7 +55,7 @@ public class HotelMapper {
                 address.getStreet(),
                 address.getCity(),
                 address.getCountry(),
-                address.getPostcode()
+                address.getPostCode()
         );
     }
 
@@ -113,7 +113,7 @@ public class HotelMapper {
         address.setStreet(dto.street());
         address.setCity(dto.city());
         address.setCountry(dto.country());
-        address.setPostcode(dto.postcode());
+        address.setPostCode(dto.postCode());
         return address;
     }
 

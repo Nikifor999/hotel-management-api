@@ -23,7 +23,7 @@ public final class TestDataFactory {
                 .country("Belarus")
                 .houseNumber(9)
                 .id(1L)
-                .postcode("220004")
+                .postCode("220004")
                 .street("Pobediteley Avenue")
                 .build();
 
@@ -61,7 +61,7 @@ public final class TestDataFactory {
                 .city("Minsk")
                 .country("Belarus")
                 .houseNumber(9)
-                .postcode("220004")
+                .postCode("220004")
                 .street("Pobediteley Avenue")
                 .build();
 

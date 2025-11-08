@@ -1,7 +1,6 @@
 package com.back.hotelshub.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
@@ -25,7 +24,7 @@ public class Address {
     private String street;
 
     @Column(name = "post_code")
-    private String postcode;
+    private String postCode;
 
     @NotEmpty
     private String country;
